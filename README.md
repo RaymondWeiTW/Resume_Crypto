@@ -1,6 +1,6 @@
 # Cryptocurrency 資訊
-> 🚨 內容為本人投資心得 相關排名仍具有投資風險 使用者仍需自付風險控管責任 🚨
-
+🚨 內容為本人投資心得 相關排名仍具有投資風險 使用者仍需自付風險控管責任 🚨
+🚨 程式執行必須下載 必須 json-20240303.jar  ![相關網址](https://repo1.maven.org/maven2/org/json/json/20240303/)🚨
 ### 1. 類別圖
 ![類別圖](https://files.catbox.moe/7wfirk.png)
 ### 2. 時序圖
