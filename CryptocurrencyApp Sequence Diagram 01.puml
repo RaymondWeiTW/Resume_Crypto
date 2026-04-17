@@ -1,0 +1,95 @@
+@startuml
+' --- 時序圖 (Cryptocurrency Analysis System) ---
+
+
+
+== 1. 匯率計算階段 (Exchange Calculator) ==
+
+User -> App: 選擇 1. 匯率計算
+activate App
+
+loop 直到輸入 exit
+    User -> App: 輸入目標幣種 (如: POL) 與台幣金額
+    
+    App -> Rate: getTwdToUsdtFromBitoPro()
+    activate Rate
+    Rate -> Http: get(BitoPro_URL)
+    Http -> API: Request (USDT/TWD)
+    API --> Http: JSON Data
+    Http --> Rate: JSON String
+    Rate -> Rate: 解析 lastPrice 並倒數
+    Rate --> App: 回傳 TWD->USDT 匯率
+    deactivate Rate
+
+    App -> Rate: getUsdtToCryptoFromBitget(symbol)
+    activate Rate
+    Rate -> Http: get(Bitget_URL)
+    Http -> API: Request (Target/USDT)
+    API --> Http: JSON Data
+    Http --> Rate: JSON String
+    Rate -> Rate: 解析 lastPr 並倒數
+    Rate --> App: 回傳 USDT->Target 匯率
+    deactivate Rate
+
+    App -> User: 提示輸入手續費 (BitoPro/Bitget)
+    User -> App: 輸入數值或按 Enter (預設)
+    
+    App -> App: 計算扣費後最終獲得量
+    App -> User: 顯示報價、手續費與計算結果
+end
+deactivate App
+
+== 2. 網格排行階段 (Grid Ranker) ==
+
+User -> App: 選擇 2. 網格成績排行
+activate App
+
+loop 幣種清單編輯
+    User -> App: 輸入 [+幣種] 或 [-幣種]
+end
+User -> App: 按 Enter 開始分析
+
+loop 對於清單中每個幣種
+    App -> Grid: analyze(symbol)
+    activate Grid
+    
+    Grid -> Http: get(Binance_Klines_URL)
+    Http -> API: Request (K-lines 1d, limit 50)
+    API --> Http: JSON Array
+    Http --> Grid: JSON String
+    
+    Grid -> Grid: 解析 K 線數據 (Open/High/Low/Close/Vol)
+    
+    Grid -> Indicator: calculateMA / calculateActualADX / calculateATRPercent
+    activate Indicator
+    Indicator --> Grid: 回傳技術指標數值
+    deactivate Indicator
+    
+    Grid -> Indicator: calculateRankingScore(MarketData)
+    activate Indicator
+    Indicator -> Indicator: 根據權重 (A組趨勢, B組波動) 評分
+    Indicator --> Grid: 回傳總分 (Score)
+    deactivate Indicator
+    
+    Grid --> App: 返回封裝好的 MarketData 物件
+    deactivate Grid
+end
+
+App -> App: 依據 Score 進行降冪排序
+
+App -> Report: printConsoleTable(results)
+activate Report
+Report --> User: 顯示格式化表格 (排名/幣種/得分/趨勢)
+deactivate Report
+
+App -> Report: saveToTxt(results)
+activate Report
+Report -> Report: 生成檔名 (Grid_Rank_時間.txt)
+Report -> LocalFile: 寫入分析報告
+Report --> App: 儲存成功通知
+deactivate Report
+
+App -> User: 顯示「報告已儲存」提示
+deactivate App
+
+@enduml]

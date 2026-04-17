@@ -1,0 +1,71 @@
+@startuml
+' --- 類別圖 (Cryptocurrency Analysis System) ---
+
+class CryptocurrencyApp {
+  - {static} Scanner scanner
+  - {static} RateService rateService
+  - {static} GridService gridService
+  --
+  + {static} void main(String[] args)
+  - {static} void runExchangeCalculator()
+  - {static} void runGridRanker()
+  - {static} double getFeeInput(double defaultValue)
+}
+
+class RateService {
+  --
+  + double getTwdToUsdtFromBitoPro()
+  + double getUsdtToCryptoFromBitget(String symbol)
+}
+
+class GridService {
+  - IndicatorService indicatorService
+  --
+  + MarketData analyze(String symbol)
+}
+
+class IndicatorService {
+  --
+  + BigDecimal calculateRankingScore(MarketData data)
+  + double calculateMA(List<double[]> data, int period)
+  + double calculateATRPercent(List<double[]> k)
+  + double calculateActualADX(List<double[]> k)
+}
+
+class MarketData {
+  + String symbol
+  + BigDecimal currentPrice
+  + BigDecimal score
+  + BigDecimal adx
+  + BigDecimal atrPercent
+  + double todayVolume
+  + double avg7dVolume
+  + double ma7
+  + double ma14
+  --
+  + MarketData(String symbol)
+}
+
+class ReportService {
+  --
+  + {static} void printConsoleTable(List<MarketData> list)
+  + {static} void saveToTxt(List<MarketData> list)
+}
+
+class HttpUtil {
+  --
+  + {static} String get(String urlStr)
+}
+
+' 關係定義
+CryptocurrencyApp *-- RateService : contains
+CryptocurrencyApp *-- GridService : contains
+CryptocurrencyApp ..> ReportService : uses
+GridService *-- IndicatorService : contains
+GridService ..> MarketData : creates/returns
+GridService ..> HttpUtil : calls
+RateService ..> HttpUtil : calls
+IndicatorService ..> MarketData : calculates
+ReportService ..> MarketData : formats
+
+@enduml
