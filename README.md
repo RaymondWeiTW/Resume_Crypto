@@ -11,7 +11,6 @@
 
 *   **所需檔案**：`json-20240303.jar`
 *   **下載連結**：[Maven Central Repository](https://repo1.maven.org/maven2/org/json/json/20240303/)
-*   **使用說明**：請確保將此 `.jar` 檔匯入至專案的 Build Path 中。
 
 ---
 
