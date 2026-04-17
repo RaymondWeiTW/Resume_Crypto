@@ -1,0 +1,10 @@
+
+json-20240303.jar  導入 Eclipse 
+下載完成後，請回到 Eclipse 執行以下操作：
+開啟屬性視窗：在左側專案上按 右鍵，選擇最下方的 Properties。
+進入路徑設定：點選左側選單的 Java Build Path。
+選擇 Library 分頁：點擊右側上方的 Libraries 頁籤。
+選取 Classpath：點一下列表中的 Classpath（這步很重要，沒點它右邊按鈕可能是灰色的）。
+新增檔案：點擊右側按鈕 Add External JARs...。
+尋找檔案：在彈出的 Mac 檔案視窗中，左側點選 下載 (Downloads)，找到剛下載的 json-20240303.jar 並點選開啟。
+套用設定：點擊下方的 Apply and Close。
