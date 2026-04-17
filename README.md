@@ -1,10 +1,26 @@
+
 # Cryptocurrency 資訊
-🚨 內容為本人投資心得 相關排名仍具有投資風險 使用者仍需自付風險控管責任 🚨
-🚨 程式執行必須下載 必須 json-20240303.jar  ![相關網址](https://repo1.maven.org/maven2/org/json/json/20240303/)🚨
-### 1. 類別圖
+
+> [!CAUTION]
+> **風險聲明**  
+> 本內容僅為個人投資心得分享，相關排名仍具投資風險，使用者應自負風險控管責任。
+
+---
+
+## 🛠️ 環境配置
+執行本程式前，**必須**下載並配置以下 Library：
+
+*   **所需檔案**：`json-20240303.jar`
+*   **下載連結**：[Maven Central Repository](https://repo1.maven.org/maven2/org/json/json/20240303/)
+*   **使用說明**：請確保將此 `.jar` 檔匯入至專案的 Build Path 中。
+
+---
+
+### 1. 類別圖 (Class Diagram)
 ![類別圖](https://files.catbox.moe/7wfirk.png)
-### 2. 時序圖
-![時序圖 1](https://files.catbox.moe/mv14gg.png)
+
+### 2. 時序圖 (Sequence Diagram)
+![時序圖](https://files.catbox.moe/mv14gg.png)
 
 ---
 
